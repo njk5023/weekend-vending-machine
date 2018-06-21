@@ -9,17 +9,17 @@ import java.util.Scanner;
 public class InputFile  {
 
 	
-public static void main (String[] args) {
-	
-	
-	String path = "vendingmachine.csv";
-	Map <String, Item> ourMap = makeMap(path);
-	for(Map.Entry<String, Item> kv  : ourMap.entrySet()) {
-		System.out.println(kv.getKey() + " " + kv.getValue().getName() + " " + kv.getValue().getPrice() + " " + kv.getValue().getType());
-	}
-}
+//public static void main (String[] args) {
+//	
+//	
+//	String path = "vendingmachine.csv";
+//	Map <String, Item> ourMap = restockMachine(path);
+//	for(Map.Entry<String, Item> kv  : ourMap.entrySet()) {
+//		System.out.println(kv.getKey() + " " + kv.getValue().getName() + " " + kv.getValue().getPrice() + " " + kv.getValue().getType() + " " + kv.getValue().getInventory());
+//	}
+//}
 	 
-	public static Map <String, Item> makeMap (String path) {	
+	public static Map <String, Item> restockMachine (String path) {	
 		Map <String, Item> mapToReturn = new HashMap<String, Item>();
 		
 		File input = new File(path);
