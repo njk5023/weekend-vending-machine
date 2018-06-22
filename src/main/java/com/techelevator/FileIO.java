@@ -66,6 +66,7 @@ public class FileIO {
 	}
 	
 	public void addMoneyLog (int dollars, double balance) {
+		currentDate = new Date();
 		File inputFile = new File(logPath);	
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
 			File newFile = new File("log.txt");			
@@ -90,6 +91,7 @@ public class FileIO {
 	}
 	
 	public void dispenseLog (Item item, String key, double balance) {
+		currentDate = new Date();
 		File inputFile = new File(logPath);	
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
 			File newFile = new File("log.txt");			
@@ -114,6 +116,7 @@ public class FileIO {
 	}
 	
 	public void giveChangeLog (double balance) {
+		currentDate = new Date();
 		File inputFile = new File(logPath);	
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
 			File newFile = new File("log.txt");			

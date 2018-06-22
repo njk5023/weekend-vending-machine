@@ -8,7 +8,7 @@ public class Item {
 	
 	//consumption method when Finish Transaction option and after change is printed
 	public String getConsumeMessage() {
-		if ("Chips".equals(this.type)) {
+		if ("Chip".equals(this.type)) {
 			return "Crunch Crunch, Yum!";
 		} else if ("Candy".equals(this.type)) {
 			return "Munch Munch, Yum!";
