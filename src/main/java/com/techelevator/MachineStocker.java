@@ -10,6 +10,10 @@ public class MachineStocker {
 	
 	private Map<String, Stack<Item>> vendingStock = new HashMap <String, Stack<Item>> ();
 	
+	public void reStockMachine (Map <String, Stack<Item>> map) {
+		this.vendingStock = map;
+	}
+	
 	public int getItemsRemaining(String key) {
 				return this.vendingStock.get(key).size();
 	}
@@ -23,7 +27,4 @@ public class MachineStocker {
 		}		
 	}
 	
-	public void reStockMachine (Map <String, Stack<Item>> map) {
-		this.vendingStock = map;
-	}
 }
