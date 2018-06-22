@@ -30,7 +30,15 @@ public class Item {
 	public String getType() {
 		return this.type;
 	}
-		
+	
+	
+	//method called with each successful product selection. decrements inventory of product
+	public void dispenseItem() {
+		if (this.inventory > 0) {
+			this.inventory--;			
+		}
+	}
+	
 	//item constructor, values of restockMachine Map in InputFile Class
 	public Item (String name, double price, String type) {
 		this.name = name;
