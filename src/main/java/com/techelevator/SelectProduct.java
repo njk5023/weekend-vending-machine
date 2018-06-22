@@ -1,10 +1,12 @@
+
+
 package com.techelevator;
 
 import java.util.Map;
 import java.util.Scanner;
 
 public class SelectProduct {
-	
+/*	
 	public static void main(String[] args) {
 	
 	String path = "vendingmachine.csv";
@@ -30,4 +32,6 @@ public class SelectProduct {
 	
 
 	}
+*/
 }
+
