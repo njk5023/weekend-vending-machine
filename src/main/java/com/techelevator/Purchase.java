@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Purchase {
+	/*
 	
 	private double moneyTotal;
 	private String keySelected = "";
@@ -29,6 +30,7 @@ public class Purchase {
 			System.out.println("Please make a valid selection.");
 		}
 	}
+	*/
 	
 
 }

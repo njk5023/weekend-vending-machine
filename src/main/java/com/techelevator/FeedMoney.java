@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 
 public class FeedMoney {
+	/*
 	
 	private double balance = 0;
 	
@@ -106,4 +107,5 @@ public class FeedMoney {
 	}
 	
 	//EXTRA COMMENTS TO DELETE IN MERGE
+	 * */
 }

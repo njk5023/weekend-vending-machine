@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class SelectProduct {
 	
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 	
 	String path = "vendingmachine.csv";
 	Map <String, Item> ourMap = InputFile.restockMachine(path);
@@ -28,6 +28,6 @@ public class SelectProduct {
 	
 	
 	
-
 	}
+	*/
 }
