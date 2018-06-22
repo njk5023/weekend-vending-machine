@@ -26,7 +26,18 @@ public class MachineStockerTest {
 	}
 	
 	@Test
-	public void getItemsRemaining() {
+	public void restockmachineTest() {
+		
+		Assert.assertNull(testMap);
+		
+		test.reStockMachine(testMap);
+		
+		Assert.assertNotNull(testMap);
+	
+	}
+	
+	@Test
+	public void getItemsRemainingTest() {
 		item.push(Snickers);
 		item.push(Snickers);
 		item.push(Snickers);
@@ -35,17 +46,19 @@ public class MachineStockerTest {
 		
 		testMap.put(key1, item);
 		
-		Assert.assertEquals(5, testMap.get(key1).size());
-		testMap.get(key1).pop();
-		Assert.assertEquals(4, testMap.get(key1).size());
-		testMap.get(key1).pop();
-		Assert.assertEquals(3, testMap.get(key1).size());
-		testMap.get(key1).pop();
-		Assert.assertEquals(2, testMap.get(key1).size());
-		testMap.get(key1).pop();
-		Assert.assertEquals(1, testMap.get(key1).size());
-		testMap.get(key1).pop();
-		Assert.assertEquals(0, testMap.get(key1).size());
+		test.reStockMachine(testMap);
+		
+		Assert.assertEquals(5, test.getItemsRemaining(key1));
+		test.dispense(key1);
+		Assert.assertEquals(4, test.getItemsRemaining(key1));
+		test.dispense(key1);
+		Assert.assertEquals(3, test.getItemsRemaining(key1));
+		test.dispense(key1);
+		Assert.assertEquals(2, test.getItemsRemaining(key1));
+		test.dispense(key1);
+		Assert.assertEquals(1, test.getItemsRemaining(key1));
+		test.dispense(key1);
+		Assert.assertEquals(0, test.getItemsRemaining(key1));
 		
 	}
 	@Test
@@ -55,6 +68,8 @@ public class MachineStockerTest {
 		item.push(Snickers);
 		item.push(Snickers);
 		item.push(Snickers);
+		
+		test.reStockMachine(testMap);
 		
 		testMap.put(key1, item);
 		Assert.assertEquals(Snickers, test.dispense(key1));
