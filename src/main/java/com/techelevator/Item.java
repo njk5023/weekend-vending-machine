@@ -5,18 +5,19 @@ public class Item {
 	private double price; //of item in VM
 	private String name; //of item in VM
 	private String type; //of item in VM
-	private int inventory; //of item in VM
 	
 	//consumption method when Finish Transaction option and after change is printed
-	public void consumeMessage() {
-		if (this.type.equals("Chip")) {
-			System.out.println("Crunch Crunch, Yum!");
-		} else if (this.type.equals("Candy")) {
-			System.out.println("Munch Munch, Yum!");
-		} else if (this.type.equals("Drink") ) {
-			System.out.println("Glug Glug, Yum!");
-		} else if (this.type.equals("Gum")) {
-			System.out.println("Chew Chew, Yum!");			
+	public String getConsumeMessage() {
+		if ("Chips".equals(this.type)) {
+			return "Crunch Crunch, Yum!";
+		} else if ("Candy".equals(this.type)) {
+			return "Munch Munch, Yum!";
+		} else if ("Drink".equals(this.type) ) {
+			return "Glug Glug, Yum!";
+		} else if ("Gum".equals(this.type)) {
+			return "Chew Chew, Yum!";			
+		} else {
+			return "I don't know what this is, but it's tasty.";
 		}
 	}
 	
@@ -29,23 +30,12 @@ public class Item {
 	public String getType() {
 		return this.type;
 	}
-	public int getInventory() {
-		return this.inventory;
-	}
-	
-	//method called with each successful product selection. decrements inventory of product
-	public void dispenseItem() {
-		if (this.inventory > 0) {
-			this.inventory--;			
-		}
-	}
-	
+		
 	//item constructor, values of restockMachine Map in InputFile Class
 	public Item (String name, double price, String type) {
 		this.name = name;
 		this.price = price;
 		this.type = type;
-		this.inventory = 5;
 	}
 	
 }
