@@ -28,7 +28,7 @@ public class MachineStockerTest {
 	@Test
 	public void restockmachineTest() {
 		
-		Assert.assertNull(testMap);
+		Assert.assertNull(testMap); //failing but is empty
 		
 		test.reStockMachine(testMap);
 		
