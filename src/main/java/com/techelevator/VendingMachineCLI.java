@@ -16,9 +16,7 @@ public class VendingMachineCLI {
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_OPTION_FEED_MONEY,
 															PURCHASE_MENU_OPTION_SELECT_PRODUCT,
 															PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
-	
-
-	
+		
 	private Menu menu;
 	
 	public VendingMachineCLI(Menu menu) {
@@ -26,7 +24,9 @@ public class VendingMachineCLI {
 	}
 	
 	public void run() {
+		//holding text file
 		String path = "vendingmachine.csv";
+		//creating ourMap object, instantiating with InputFile class restockMachine method
 		Map <String, Item> ourMap = InputFile.restockMachine(path);
 		
 		while(true) {
@@ -34,8 +34,7 @@ public class VendingMachineCLI {
 			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				for(Map.Entry<String, Item> kv  : ourMap.entrySet()) {
 					System.out.println(kv.getKey() + " " + kv.getValue().getName() + " " + kv.getValue().getPrice() + " " + kv.getValue().getType() + " " + kv.getValue().getInventory());
-				}
-				// display vending machine items MAKE THIS PRETTY LATER
+				}// display vending machine items MAKE THIS PRETTY LATER
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				while(true) {
 					String choice2 = (String)menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
@@ -50,10 +49,13 @@ public class VendingMachineCLI {
 			}
 		}
 	}
-	
+	//main program
 	public static void main(String[] args) {
+		//menu object, primarily displays option and records user input
 		Menu menu = new Menu(System.in, System.out);
+		//vendingMachine object initialized with Menu Object
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
+		
 		cli.run();
 	}
 }

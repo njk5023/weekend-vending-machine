@@ -13,7 +13,7 @@ public class Purchase {
 		this.moneyTotal = 0;
 		this.vendingMap = map;
 	}
-	
+	//feed money option selection
 	public void feedMoney(int dollarsToFeed) {
 		if (dollarsToFeed < 1) {
 			dollarsToFeed = 0;
@@ -21,7 +21,7 @@ public class Purchase {
 		}
 		this.moneyTotal += dollarsToFeed;
 	}
-	
+	//need to complete
 	public void selectProduct(String key) {
 		if (this.vendingMap.containsKey(key)) {
 			

@@ -2,12 +2,12 @@ package com.techelevator;
 
 public class Item {
 
-	//local variable
-	private double price;
-	private String name;
-	private String type;
-	private int inventory;
+	private double price; //of item in VM
+	private String name; //of item in VM
+	private String type; //of item in VM
+	private int inventory; //of item in VM
 	
+	//consumption method when Finish Transaction option and after change is printed
 	public void consumeMessage() {
 		if (this.type.equals("Chip")) {
 			System.out.println("Crunch Crunch, Yum!");
@@ -33,12 +33,14 @@ public class Item {
 		return this.inventory;
 	}
 	
+	//method called with each successful product selection. decrements inventory of product
 	public void dispenseItem() {
 		if (this.inventory > 0) {
 			this.inventory--;			
 		}
 	}
-		
+	
+	//item constructor, values of restockMachine Map in InputFile Class
 	public Item (String name, double price, String type) {
 		this.name = name;
 		this.price = price;
