@@ -29,9 +29,7 @@ public class Item {
 	public String getType() {
 		return this.type;
 	}
-	public int getInventory() {
-		return this.inventory;
-	}
+	
 	
 	//method called with each successful product selection. decrements inventory of product
 	public void dispenseItem() {
@@ -45,7 +43,6 @@ public class Item {
 		this.name = name;
 		this.price = price;
 		this.type = type;
-		this.inventory = 5;
 	}
 	
 }
