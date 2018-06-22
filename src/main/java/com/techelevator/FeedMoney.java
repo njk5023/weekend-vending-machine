@@ -95,5 +95,5 @@ public class FeedMoney {
 		System.out.print("balance is now" + andy.getBalance());
 	}
 	
-	
+	//EXTRA COMMENTS TO DELETE IN MERGE
 }
