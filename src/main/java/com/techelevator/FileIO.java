@@ -6,9 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
@@ -27,6 +29,8 @@ public class FileIO {
 	private 	SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aaa");
 	//dateToStr holding current date in specified time and date format
 	String dateToStr = format.format(currentDate);
+	
+	NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
 	
 	
 	public Map <String, Stack<Item>> restockMachine (String restockPath) {	
@@ -83,7 +87,7 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + "\tFEED MONEY: " + dollars + "\t" + balance);
+			    out.println(dateToStr + "FEED MONEY: \t\t " + nf.format(dollars) + "\t\t" + nf.format(balance));
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
@@ -108,7 +112,7 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + " " + item.getName() + " " + key + " " + balance + "\t" + (balance - item.getPrice()));
+			    out.println(dateToStr + " " + item.getName() + " " + key + " " + nf.format(balance) + "\t\t" + nf.format((balance - item.getPrice())));
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
@@ -133,7 +137,7 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + "\tGIVE CHANGE: " + balance + "\t" + "$0.00");
+			    out.println(dateToStr + "GIVE CHANGE: \t\t" + nf.format(balance) + "\t\t" + "$0.00");
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				

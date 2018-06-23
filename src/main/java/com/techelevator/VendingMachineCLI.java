@@ -46,8 +46,16 @@ public class VendingMachineCLI {
 		System.out.println("*******************************");
 		
 		while (!mainChoice.equals(MAIN_MENU_OPTION_MAINTENANCE)) {
-			mainChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			mainChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);			
 			if (mainChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
+				/*item sold out 
+				//exception when any stock is depleted
+				Exception in thread "main" java.util.EmptyStackException
+				at java.util.Stack.peek(Stack.java:102)
+				at com.techelevator.MachineStocker.getOrderedMenu(MachineStocker.java:28)
+				at com.techelevator.VendingMachineCLI.run(VendingMachineCLI.java:59)
+				at com.techelevator.VendingMachineCLI.main(VendingMachineCLI.java:118)
+				*/
 				orderedMenu = ms.getOrderedMenu();
 				System.out.println("");
 				System.out.print(orderedMenu);				
@@ -79,6 +87,8 @@ public class VendingMachineCLI {
 							System.out.println("INVALID ENTRY: Key does not exist.");
 						} else if (ms.getMap().get(userInput).isEmpty()) {
 							System.out.println("INVALID ENTRY: Item is sold out.");
+						} else if (!(mh.getBalance() > ms.getMap().get(userInput).peek().getPrice())) {
+							System.out.println("Not enough funds!");
 						} else {
 							itemsBought.add(ms.dispense(userInput));
 							io.dispenseLog(itemsBought.get(itemsBought.size() -1), userInput, mh.getBalance());
@@ -93,7 +103,7 @@ public class VendingMachineCLI {
 						System.out.println(mh.giveChange());						
 					}
 					
-				} while(!purchaseChoice.equals(PURCHASE_MENU_OPTION_BACK));
+				} while(!(purchaseChoice.equals(PURCHASE_MENU_OPTION_BACK) || purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)));
 
 				// do purchase
 			}

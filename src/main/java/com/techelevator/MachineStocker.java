@@ -22,8 +22,8 @@ public class MachineStocker {
 		ArrayList<String> stringList = new ArrayList<String>();
 		for (Map.Entry<String, Stack<Item>> kv : this.getMap().entrySet()) {
 			if (kv.getValue().size() > 0) {
-				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + " "
-						+ kv.getValue().peek().getPrice() + " INVENTORY: " + kv.getValue().size() + "\n");
+				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + "\t\t "
+						+ kv.getValue().peek().getPrice() + "\t INVENTORY: " + kv.getValue().size() + "\n");
 			} else {
 				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + " "
 						+ kv.getValue().peek().getPrice() + " SOLD OUT\n");

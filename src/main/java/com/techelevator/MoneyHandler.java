@@ -15,7 +15,12 @@ public class MoneyHandler {
 	}
 
 	public void payForItem(Item item) {
-		this.balance -= item.getPrice();
+		if (!(this.balance > item.getPrice())){
+			this.balance = this.getBalance();
+			
+		}else {
+			this.balance -= item.getPrice();
+		}
 	}
 
 	// method called when Finish Transaction option selected. provides output of Q,
