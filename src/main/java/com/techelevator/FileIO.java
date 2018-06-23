@@ -87,7 +87,7 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + "FEED MONEY: \t\t " + nf.format(dollars) + "\t\t" + nf.format(balance));
+			    out.println(dateToStr + "\t FEED MONEY:        \t " + nf.format(dollars) + "\t" + nf.format(balance));
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
@@ -112,7 +112,7 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + " " + item.getName() + " " + key + " " + nf.format(balance) + "\t\t" + nf.format((balance - item.getPrice())));
+			    out.println(dateToStr + " " + item.getName() + " " + key + "\t " + nf.format(balance) + "\t" + nf.format((balance - item.getPrice())));
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
@@ -137,7 +137,7 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + "GIVE CHANGE: \t\t" + nf.format(balance) + "\t\t" + "$0.00");
+			    out.println(dateToStr + "\t GIVE CHANGE:       \t" + nf.format(balance) + "\t" + "$0.00");
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
