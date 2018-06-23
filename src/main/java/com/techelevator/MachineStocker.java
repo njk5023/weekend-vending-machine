@@ -25,8 +25,7 @@ public class MachineStocker {
 				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + "\t\t "
 						+ kv.getValue().peek().getPrice() + "\t INVENTORY: " + kv.getValue().size() + "\n");
 			} else {
-				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + " "
-						+ kv.getValue().peek().getPrice() + " SOLD OUT\n");
+				stringList.add("" + kv.getKey() + "\t***ITEM SOLD OUT***\n");
 			}
 		}
 
