@@ -11,6 +11,7 @@ public class MachineStocker {
 
 	private Map<String, Stack<Item>> vendingStock = new HashMap<String, Stack<Item>>();
 	private List<Item> itemsBought = new ArrayList<Item>();
+	
 
 	public Map<String, Stack<Item>> getMap() {
 		return this.vendingStock;

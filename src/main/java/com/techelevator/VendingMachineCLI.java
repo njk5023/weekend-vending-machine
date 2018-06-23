@@ -12,12 +12,14 @@ public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE };
+	private static final String MAIN_MENU_OPTION_MAINTENANCE = "Maintenance";	
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_MAINTENANCE };
 	private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "Feed Money";
 	private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Product";
 	private static final String PURCHASE_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
+	private static final String PURCHASE_MENU_OPTION_BACK = "Main Menu";
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_OPTION_FEED_MONEY,
-			PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION };
+			PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION, PURCHASE_MENU_OPTION_BACK };
 
 	private Menu menu;
 
@@ -31,22 +33,31 @@ public class VendingMachineCLI {
 		FileIO io = new FileIO();
 		Scanner input = new Scanner(System.in);
 		String userInput = "";
-
+		String mainChoice = "";
+		String purchaseChoice = "";
+		
 		String restockPath = "vendingmachine.csv";
 		ms.reStockMachine(io.restockMachine(restockPath));
 		String orderedMenu;
 		ArrayList<Item> itemsBought = new ArrayList<Item>();
 
-		while (true) {
-			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
+		System.out.println("*******************************");
+		System.out.println("***     Vendo-Matic 500     ***");
+		System.out.println("*******************************");
+		
+		while (!mainChoice.equals(MAIN_MENU_OPTION_MAINTENANCE)) {
+			mainChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			if (mainChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				orderedMenu = ms.getOrderedMenu();
-				System.out.print(orderedMenu);
-			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				while (true) {
+				System.out.println("");
+				System.out.print(orderedMenu);				
+			}else if (mainChoice.equals(MAIN_MENU_OPTION_MAINTENANCE)){
+				System.out.println("Machine being serviced");
+			}else if (mainChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+				do {
 					System.out.println("\nCurrent Money Provided: " + mh.getBalance());
-					String choice2 = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-					if (choice2.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+					purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+					if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 						System.out.println("Please enter dollar amount.");
 						userInput = input.nextLine();
 
@@ -61,7 +72,7 @@ public class VendingMachineCLI {
 						} catch (NumberFormatException e) {
 							System.out.println("INVALID ENTRY: Please enter a whole dollar amount.");
 						}
-					} else if (choice2.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 						System.out.println("Please enter key to vending machine item desired (e.g. A1, D3).");
 						userInput = input.nextLine();
 						if (!ms.getMap().containsKey(userInput)) {
@@ -74,15 +85,15 @@ public class VendingMachineCLI {
 							mh.payForItem(itemsBought.get(itemsBought.size() - 1));
 							System.out.println("Item purchased: " + itemsBought.get(itemsBought.size() -1).getName());
 						}
-					} else if (choice2.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 						for (Item item : itemsBought) {
 							System.out.println(item.getConsumeMessage());
 						}
 						io.giveChangeLog(mh.getBalance());
 						System.out.println(mh.giveChange());						
 					}
-
-				}
+					
+				} while(!purchaseChoice.equals(PURCHASE_MENU_OPTION_BACK));
 
 				// do purchase
 			}
