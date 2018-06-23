@@ -69,6 +69,7 @@ public class FileIO {
 		return mapToReturn;	
 	}
 	
+	
 	public void addMoneyLog (int dollars, double balance) {
 		currentDate = new Date();
 		File inputFile = new File(logPath);	
@@ -142,5 +143,33 @@ public class FileIO {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
 			}
+				
 	}
+	
+	public void salesReport () {
+		currentDate = new Date();
+		File inputFile = new File(reportPath);	
+		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
+			File newFile = new File("report.txt");			
+			try {
+				newFile.createNewFile();
+			} catch (IOException e) {
+				System.out.println("Input/output exception error");
+				e.printStackTrace();
+			}			
+		}	
+		
+		//appending text to file
+				try(FileWriter fw = new FileWriter(reportPath, true); 
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter out = new PrintWriter(bw))
+					{
+					
+					
+					} catch (IOException e) {
+						System.out.println("Input/output exception error");
+						e.printStackTrace();				
+					}
+	}
+	
 }

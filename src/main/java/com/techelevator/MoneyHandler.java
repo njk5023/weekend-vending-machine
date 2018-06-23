@@ -16,8 +16,7 @@ public class MoneyHandler {
 
 	public void payForItem(Item item) {
 		if (!(this.balance > item.getPrice())){
-			this.balance = this.getBalance();
-			
+			this.balance = this.getBalance();			
 		}else {
 			this.balance -= item.getPrice();
 		}
@@ -32,7 +31,7 @@ public class MoneyHandler {
 		int nickels = 0;
 		// change to return to user
 		double change = this.getBalance();
-		// while loop to return change in least amount of coin
+		// while loop to return change in least amount of coin			
 		while (change >= 0.25) {
 			quarters++;
 			change -= 0.25;
@@ -45,7 +44,7 @@ public class MoneyHandler {
 			nickels++;
 			change -= 0.05;
 		}
-
+		
 		this.balance = 0;
 		return "Your change is " + quarters + " quarters, " + dimes + " dimes, and " + nickels + " nickels.";
 	}

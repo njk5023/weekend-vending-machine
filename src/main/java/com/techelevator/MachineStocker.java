@@ -10,7 +10,7 @@ import java.util.Stack;
 public class MachineStocker {
 
 	private Map<String, Stack<Item>> vendingStock = new HashMap<String, Stack<Item>>();
-	private List<Item> itemsBought = new ArrayList<Item>();
+//	private List<Item> itemsBought = new ArrayList<Item>();
 	
 
 	public Map<String, Stack<Item>> getMap() {
@@ -59,8 +59,12 @@ public class MachineStocker {
 		}
 	}
 	
-	public void itemBought(Item item) {
+/*	public void itemBought(Item item) {
 		this.itemsBought.add(item);
 	}
 
+	public void emptyItemBought () {
+		this.itemsBought.clear();
+		
+	}*/
 }

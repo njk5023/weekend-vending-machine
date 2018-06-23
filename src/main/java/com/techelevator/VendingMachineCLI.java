@@ -48,14 +48,6 @@ public class VendingMachineCLI {
 		while (!mainChoice.equals(MAIN_MENU_OPTION_MAINTENANCE)) {
 			mainChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);			
 			if (mainChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				/*item sold out 
-				//exception when any stock is depleted
-				Exception in thread "main" java.util.EmptyStackException
-				at java.util.Stack.peek(Stack.java:102)
-				at com.techelevator.MachineStocker.getOrderedMenu(MachineStocker.java:28)
-				at com.techelevator.VendingMachineCLI.run(VendingMachineCLI.java:59)
-				at com.techelevator.VendingMachineCLI.main(VendingMachineCLI.java:118)
-				*/
 				orderedMenu = ms.getOrderedMenu();
 				System.out.println("");
 				System.out.print(orderedMenu);				
@@ -100,7 +92,9 @@ public class VendingMachineCLI {
 							System.out.println(item.getConsumeMessage());
 						}
 						io.giveChangeLog(mh.getBalance());
-						System.out.println(mh.giveChange());						
+						Math.round(mh.getBalance());
+						System.out.println(mh.giveChange());	
+						itemsBought.clear();
 					}
 					
 				} while(!(purchaseChoice.equals(PURCHASE_MENU_OPTION_BACK) || purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)));
