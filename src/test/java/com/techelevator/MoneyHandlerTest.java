@@ -12,30 +12,30 @@ public class MoneyHandlerTest {
 	@Before
 	public void setup() {
 		test = new MoneyHandler();
-		testItem = new Item("Ruffles", 1.35, "Chips");
+		testItem = new Item("Ruffles", 135, "Chips");
 
 	}
 	
 	@Test
 	public void get_balance_test() {
-		Assert.assertEquals(0,  test.getBalance(), 0.0);
+		Assert.assertEquals(0,  test.getBalance());
 	}
 	
 	@Test
 	public void add_money_test() {
 		test.addMoney(10);
-		Assert.assertEquals(10,  test.getBalance(), 0.0);
+		Assert.assertEquals(1000,  test.getBalance());
 	}
 	
 	@Test
 	public void pay_for_item_test() {
 		test.addMoney(10);
 		test.payForItem(testItem);
-		Assert.assertEquals(8.65,  test.getBalance(), 0.001);
+		Assert.assertEquals(865,  test.getBalance());
 		test.payForItem(testItem);
-		Assert.assertEquals(7.30,  test.getBalance(), 0.001);
+		Assert.assertEquals(730,  test.getBalance());
 		test.payForItem(testItem);
-		Assert.assertEquals(5.95,  test.getBalance(), 0.001);		
+		Assert.assertEquals(595,  test.getBalance());		
 	}
 	
 	@Test

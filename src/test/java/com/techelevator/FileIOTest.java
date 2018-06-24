@@ -57,31 +57,31 @@ public class FileIOTest {
 		Assert.assertEquals("Mountain Melter", testMap.get("C3").peek().getName());
 		Assert.assertEquals("Candy", testMap.get("B4").peek().getType());
 		Assert.assertEquals("Gum", testMap.get("D2").peek().getType());
-		Assert.assertEquals(0.75, testMap.get("D3").peek().getPrice(), .001);
-		Assert.assertEquals(3.65, testMap.get("A4").peek().getPrice(), .001);
+		Assert.assertEquals(75, testMap.get("D3").peek().getPrice());
+		Assert.assertEquals(365, testMap.get("A4").peek().getPrice());
 		
 	}
 	
 	@Test
 	public void add_money_log_test() {
 		int dollars = 5;
-		double balance = 0;
+		int balance = 0;
 		test.addMoneyLog(dollars, balance);
 		
 	}
 	
 	@Test
 	public void dispense_log_test() {
-		Item testItem = new Item("Dr. Salt", 1.50, "Drink");
+		Item testItem = new Item("Dr. Salt", 150, "Drink");
 		String key = "C2";
-		double balance = 20;
+		int balance = 20;
 		test.dispenseLog(testItem, key, balance);
 		
 	}
 	
 	@Test
 	public void give_change_log_test() {
-		double balance = 20;
+		int balance = 20;
 		test.giveChangeLog(balance);
 		
 	}

@@ -15,8 +15,8 @@ public class MachineStockerTest {
 	String key2 = "A2";
 	Stack<Item> item = new Stack <Item>();
 	Stack<Item> item2 = new Stack <Item>();	
-	Item Snickers = new Item("Snickers", 1.25, "Candy");
-	Item Ruffles = new Item("Ruffles", 1.75, "Chip");
+	Item Snickers = new Item("Snickers", 125, "Candy");
+	Item Ruffles = new Item("Ruffles", 175, "Chip");
 	
 	
 	@Before

@@ -1,7 +1,9 @@
 package com.techelevator;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
@@ -17,9 +19,8 @@ public class VendingMachineCLI {
 	private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "Feed Money";
 	private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Product";
 	private static final String PURCHASE_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
-	private static final String PURCHASE_MENU_OPTION_BACK = "Main Menu";
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_OPTION_FEED_MONEY,
-			PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION, PURCHASE_MENU_OPTION_BACK };
+			PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
 
 	private Menu menu;
 
@@ -32,12 +33,25 @@ public class VendingMachineCLI {
 		MoneyHandler mh = new MoneyHandler();
 		FileIO io = new FileIO();
 		Scanner input = new Scanner(System.in);
+		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+
 		String userInput = "";
 		String mainChoice = "";
 		String purchaseChoice = "";
 		
 		String restockPath = "vendingmachine.csv";
 		ms.reStockMachine(io.restockMachine(restockPath));
+//		Map<String, Stack<Item>> reportMap = new HashMap<String, Stack<Item>>();
+//		
+//		for (Map.Entry<String, Stack<Item>> kv : ms.getMap().entrySet()) {
+//			reportMap.put(kv.getValue().peek().getName(), kv.getValue());
+//		}
+		
+//		io.SetSalesReport(ms.getMap());
+		
+		
+		
+		
 		String orderedMenu;
 		ArrayList<Item> itemsBought = new ArrayList<Item>();
 
@@ -55,7 +69,7 @@ public class VendingMachineCLI {
 				System.out.println("Machine being serviced");
 			}else if (mainChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				do {
-					System.out.println("\nCurrent Money Provided: " + mh.getBalance());
+					System.out.println("\nCurrent Money Provided: " + (nf.format((double)(mh.getBalance()) / 100) ));
 					purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 					if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 						System.out.println("Please enter dollar amount.");
@@ -75,6 +89,7 @@ public class VendingMachineCLI {
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 						System.out.println("Please enter key to vending machine item desired (e.g. A1, D3).");
 						userInput = input.nextLine();
+						userInput = userInput.toUpperCase();
 						if (!ms.getMap().containsKey(userInput)) {
 							System.out.println("INVALID ENTRY: Key does not exist.");
 						} else if (ms.getMap().get(userInput).isEmpty()) {
@@ -90,6 +105,9 @@ public class VendingMachineCLI {
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 						for (Item item : itemsBought) {
 							System.out.println(item.getConsumeMessage());
+							
+//							reportMap.get(item.getName()).push(item);
+//							System.out.println("report map size is now" + reportMap.get(item.getName()).size());
 						}
 						io.giveChangeLog(mh.getBalance());
 						Math.round(mh.getBalance());
@@ -97,7 +115,7 @@ public class VendingMachineCLI {
 						itemsBought.clear();
 					}
 					
-				} while(!(purchaseChoice.equals(PURCHASE_MENU_OPTION_BACK) || purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)));
+				} while(!(purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)));
 
 				// do purchase
 			}

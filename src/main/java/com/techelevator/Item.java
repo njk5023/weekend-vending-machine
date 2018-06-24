@@ -2,7 +2,7 @@ package com.techelevator;
 
 public class Item {
 
-	private double price; //of item in VM
+	private int price; //of item in VM
 	private String name; //of item in VM
 	private String type; //of item in VM
 	
@@ -21,7 +21,7 @@ public class Item {
 		}
 	}
 	
-	public double getPrice() {
+	public int getPrice() {
 		return this.price;
 	}
 	public String getName() {
@@ -33,7 +33,7 @@ public class Item {
 	
 	
 	//item constructor, values of restockMachine Map in InputFile Class
-	public Item (String name, double price, String type) {
+	public Item (String name, int price, String type) {
 		this.name = name;
 		this.price = price;
 		this.type = type;

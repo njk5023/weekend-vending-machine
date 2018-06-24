@@ -2,15 +2,16 @@ package com.techelevator;
 
 public class MoneyHandler {
 
-	private double balance = 0;
+	private int balance = 0;
 
-	public double getBalance() {
+	public int getBalance() {
 		return this.balance;
 	}
 
 	// method called when Feed Money option selected. adds money to current balance
 	// and loop back to purchase menu.
 	public void addMoney(int dollars) {
+		dollars *= 100;
 		this.balance += dollars;
 	}
 
@@ -32,17 +33,17 @@ public class MoneyHandler {
 		// change to return to user
 		double change = this.getBalance();
 		// while loop to return change in least amount of coin			
-		while (change >= 0.25) {
+		while (change >= 25) {
 			quarters++;
-			change -= 0.25;
+			change -= 25;
 		}
-		while (change >= 0.10) {
+		while (change >= 10) {
 			dimes++;
-			change -= 0.10;
+			change -= 10;
 		}
-		while (change >= 0.05) {
+		while (change >= 5) {
 			nickels++;
-			change -= 0.05;
+			change -= 5;
 		}
 		
 		this.balance = 0;

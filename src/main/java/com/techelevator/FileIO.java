@@ -22,7 +22,7 @@ public class FileIO {
 	//file paths vars
 	String restockPath = "vendingmachine.csv";
 	String logPath = "log.txt";
-	String reportPath = "report.txt";
+	String reportPath = "salesreport.txt";
 	
 	//date & time vars
 	private Date currentDate = new Date();
@@ -48,7 +48,7 @@ public class FileIO {
 				//splitting each string of txt file into element variable
 				String[] element = line.split("\\|");
 				//item object returning hold array holding elements value
-				Item hold = new Item (element[1], Double.parseDouble(element[2]), element [3]);
+				Item hold = new Item (element[1], (int)((Double.parseDouble(element[2])) * 100) , element [3]);
 				for(int i = 0; i < 5; i++) {
 				stackToReturn.push(hold);
 				}
@@ -70,7 +70,11 @@ public class FileIO {
 	}
 	
 	
-	public void addMoneyLog (int dollars, double balance) {
+	public void addMoneyLog (int dollars, int balance) {
+		currentDate = new Date();
+		dateToStr = format.format(currentDate);
+		
+		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
 		currentDate = new Date();
 		File inputFile = new File(logPath);	
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
@@ -88,15 +92,19 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + "\t FEED MONEY:        \t " + nf.format(dollars) + "\t" + nf.format(balance));
+			String toPrint;
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~FEED MONEY~~~~~~~~~~~~~", nf.format(dollars), nf.format(balance / 100));
+			out.println(toPrint);
+//			    out.println(dateToStr + "\t FEED MONEY:        \t " + nf.format(dollars / 100) + "\t" + nf.format(balance / 100));
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
 			}
 	}
 	
-	public void dispenseLog (Item item, String key, double balance) {
+	public void dispenseLog (Item item, String key, int balance) {
 		currentDate = new Date();
+		dateToStr = format.format(currentDate);
 		File inputFile = new File(logPath);	
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
 			File newFile = new File("log.txt");			
@@ -113,15 +121,20 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + " " + item.getName() + " " + key + "\t " + nf.format(balance) + "\t" + nf.format((balance - item.getPrice())));
+			String toPrint;
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, item.getName() + " " + key, nf.format( (double) (balance/100) ), nf.format( (double) ( balance - item.getPrice() ) / 100));
+			out.println(toPrint);
+
+//			    out.println(dateToStr + " " + item.getName() + " " + key + "\t " + nf.format( (double) (balance/100) ) + "\t" + nf.format( (double) ( balance - item.getPrice() ) / 100));
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
 			}
 	}
 	
-	public void giveChangeLog (double balance) {
+	public void giveChangeLog (int balance) {
 		currentDate = new Date();
+		dateToStr = format.format(currentDate);
 		File inputFile = new File(logPath);	
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
 			File newFile = new File("log.txt");			
@@ -138,7 +151,11 @@ public class FileIO {
 				PrintWriter out = new PrintWriter(bw))
 			{
 			//continuous printing to log.txt file
-			    out.println(dateToStr + "\t GIVE CHANGE:       \t" + nf.format(balance) + "\t" + "$0.00");
+			String toPrint;
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~GIVE CHANGE:~~~~~~~~~~~" , nf.format( (double) (balance/100) ), "$0.00");
+			out.println(toPrint);
+
+//			    out.println(dateToStr + "\t GIVE CHANGE:       \t" + nf.format( ((double)(balance)) / 100 ) + "\t" + "$0.00");
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();				
@@ -146,19 +163,61 @@ public class FileIO {
 				
 	}
 	
-	public void salesReport () {
+	public Map<String, Integer> getSalesReport() {
+		Map<String, Integer> mapToReturn = new HashMap<String, Integer>();
 		currentDate = new Date();
+		dateToStr = format.format(currentDate);
 		File inputFile = new File(reportPath);	
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
-			File newFile = new File("report.txt");			
+			File newFile = new File("salesreport.txt");			
 			try {
 				newFile.createNewFile();
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();
 			}			
-		}	
+		}
 		
+	return mapToReturn;	
+	}
+	
+	
+	public void SetSalesReport (Map <String, Integer> inventoryMap, Map<String, Integer> priceMap) {
+		currentDate = new Date();
+		dateToStr = format.format(currentDate);
+		File outputFile = new File(reportPath);	
+		
+		try(FileWriter fw = new FileWriter(reportPath, false); 
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw))
+			{
+			//continuous printing to log.txt file
+			String toPrint = "";
+			for (Map.Entry<String, Integer> kv : inventoryMap.entrySet()) {
+				if (kv.getKey().equals("**TOTAL SALES**")) {
+					toPrint = "**TOTAL SALES** " + inventoryMap.get("**TOTAL SALES**");
+				} else {
+					toPrint = kv.getKey() + "|" + (kv.getValue());
+					out.println(toPrint);
+				}
+			}
+			out.print("\n**TOTAL SALES** " + nf.format(0));
+//			    out.println(dateToStr + "\t FEED MONEY:        \t " + nf.format(dollars / 100) + "\t" + nf.format(balance / 100));
+			} catch (IOException e) {
+				System.out.println("Input/output exception error");
+				e.printStackTrace();				
+			}
+		
+
+
+		
+		
+		
+		
+		
+		
+
+		/*
 		//appending text to file
 				try(FileWriter fw = new FileWriter(reportPath, true); 
 						BufferedWriter bw = new BufferedWriter(fw);
@@ -170,6 +229,7 @@ public class FileIO {
 						System.out.println("Input/output exception error");
 						e.printStackTrace();				
 					}
+					*/
 	}
 	
 }

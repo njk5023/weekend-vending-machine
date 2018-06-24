@@ -9,7 +9,7 @@ public class ItemTest {
 	
 	Item test;
 	String name = "Ruffles";
-	double price = 1.25;
+	int price = 125;
 	String type = "Chips";
 
 	
@@ -21,13 +21,13 @@ public class ItemTest {
 	@Test
 	public void constructor_test() {
 		Assert.assertEquals(name, test.getName());
-		Assert.assertEquals(price, test.getPrice(), 0.0);
+		Assert.assertEquals(price, test.getPrice());
 		Assert.assertEquals(type, test.getType());
 	}
 	
 	@Test
 	public void consume_test() {
-		Item chips = new Item(name, price, "Chips");
+		Item chips = new Item(name, price, "Chip");
 		Item candy = new Item(name, price, "Candy");
 		Item drink = new Item(name, price, "Drink");
 		Item gum = new Item(name, price, "Gum");

@@ -1,15 +1,19 @@
 package com.techelevator;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
 public class MachineStocker {
 
 	private Map<String, Stack<Item>> vendingStock = new HashMap<String, Stack<Item>>();
+	private NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+
 //	private List<Item> itemsBought = new ArrayList<Item>();
 	
 
@@ -22,8 +26,10 @@ public class MachineStocker {
 		ArrayList<String> stringList = new ArrayList<String>();
 		for (Map.Entry<String, Stack<Item>> kv : this.getMap().entrySet()) {
 			if (kv.getValue().size() > 0) {
-				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + "\t\t "
-						+ kv.getValue().peek().getPrice() + "\t INVENTORY: " + kv.getValue().size() + "\n");
+				String add = String.format("%2s%-22s%8s%15s\n", "" + kv.getKey(), " | " + kv.getValue().peek().getName(), "" + nf.format( (double)(kv.getValue().peek().getPrice()) / 100), "INVENTORY: " + kv.getValue().size() );
+//				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + "\t\t "
+//						+ nf.format( (double)(kv.getValue().peek().getPrice()) / 100) + "\t INVENTORY: " + kv.getValue().size() + "\n");
+				stringList.add(add);
 			} else {
 				stringList.add("" + kv.getKey() + "\t***ITEM SOLD OUT***\n");
 			}
