@@ -93,7 +93,7 @@ public class FileIO {
 			{
 			//continuous printing to log.txt file
 			String toPrint;
-			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~FEED MONEY~~~~~~~~~~~~~", nf.format(dollars), nf.format((double)balance / 100));
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~FEED MONEY~~~~~~~~~~~~~", nf.format(dollars), nf.format(Math.round((double)balance / 100)));
 			out.println(toPrint);
 //			    out.println(dateToStr + "\t FEED MONEY:        \t " + nf.format(dollars / 100) + "\t" + nf.format(balance / 100));
 			} catch (IOException e) {
@@ -122,7 +122,7 @@ public class FileIO {
 			{
 			//continuous printing to log.txt file
 			String toPrint;
-			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, item.getName() + " " + key, nf.format( ((double)(balance))/100), nf.format( (double) ( balance - item.getPrice() ) / 100));
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, item.getName() + " " + key, nf.format( Math.round(((double)(balance))/100) ), nf.format( Math.round((double) ( balance - item.getPrice() ) / 100)));
 			out.println(toPrint);
 
 //			    out.println(dateToStr + " " + item.getName() + " " + key + "\t " + nf.format( (double) (balance/100) ) + "\t" + nf.format( (double) ( balance - item.getPrice() ) / 100));
@@ -152,7 +152,7 @@ public class FileIO {
 			{
 			//continuous printing to log.txt file
 			String toPrint;
-			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~GIVE CHANGE:~~~~~~~~~~~" , nf.format( ((double)(balance))/100 ), "$0.00");
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~GIVE CHANGE:~~~~~~~~~~~" , nf.format( Math.round( ((double)(balance))/100) ), "$0.00");
 			out.println(toPrint);
 
 //			    out.println(dateToStr + "\t GIVE CHANGE:       \t" + nf.format( ((double)(balance)) / 100 ) + "\t" + "$0.00");
@@ -228,7 +228,7 @@ public class FileIO {
 				lineToPrint = kv.getKey().substring(1,  kv.getKey().length() -1) + "|" + kv.getValue();
 				pw.println(lineToPrint);
 			}
-			lineToPrint = "\n**TOTAL SALES** " + nf.format(((double)(totalPennies)/100));
+			lineToPrint = "\n**TOTAL SALES** " + nf.format( Math.round( ( (double) (totalPennies) /100 ) ) );
 			pw.println(lineToPrint);
 		} catch (FileNotFoundException e) {
 			System.out.println("Input/output exception error");
