@@ -13,8 +13,8 @@ public class MachineStockerTest {
 	Map<String, Stack<Item>> testMap = new HashMap <String, Stack<Item>> ();
 	String key1 = "A1";
 	String key2 = "A2";
-	Stack<Item> item = new Stack <Item>();
-	Stack<Item> item2 = new Stack <Item>();	
+	Stack<Item> testStack = new Stack <Item>();
+	Stack<Item> testStack2 = new Stack <Item>();	
 	Item Snickers = new Item("Snickers", 125, "Candy");
 	Item Ruffles = new Item("Ruffles", 175, "Chip");
 	
@@ -28,23 +28,22 @@ public class MachineStockerTest {
 	@Test
 	public void restockmachineTest() {
 		
-		Assert.assertNull(testMap); //failing but is empty
-		
+		Assert.assertTrue(test.getMap().isEmpty());
+		testMap.put(key1, testStack);
+		testMap.put(key2, testStack2);
 		test.reStockMachine(testMap);
-		
-		Assert.assertNotNull(testMap);
-	
+		Assert.assertFalse(test.getMap().isEmpty());
 	}
 	
 	@Test
 	public void getItemsRemainingTest() {
-		item.push(Snickers);
-		item.push(Snickers);
-		item.push(Snickers);
-		item.push(Snickers);
-		item.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
 		
-		testMap.put(key1, item);
+		testMap.put(key1, testStack);
 		
 		test.reStockMachine(testMap);
 		
@@ -63,15 +62,15 @@ public class MachineStockerTest {
 	}
 	@Test
 	public void dispenseTest() {
-		item.push(Snickers);
-		item.push(Snickers);
-		item.push(Snickers);
-		item.push(Snickers);
-		item.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
+		testStack.push(Snickers);
 		
 		test.reStockMachine(testMap);
 		
-		testMap.put(key1, item);
+		testMap.put(key1, testStack);
 		Assert.assertEquals(Snickers, test.dispense(key1));
 	}
 }

@@ -32,8 +32,8 @@ public class FileIOTest {
 	@Before
 	public void setUp() {
 		restockPath = "vendingmachine.csv";
-		logPath = "log.txt";
-		reportPath = "salesreport.txt";
+		logPath = "logTest.txt";
+		reportPath = "salesreportTest.txt";
 		
 		currentDate = new Date();
 		format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aaa");
@@ -41,19 +41,12 @@ public class FileIOTest {
 		
 		test = new FileIO();
 	}
-	
-	/*
-	
+		
 	@Test
 	public void restock_machine_test() {
 		
 		Map <String, Stack<Item>> testMap = new HashMap <String, Stack<Item>>();		
 		testMap = test.restockMachine(restockPath);
-		
-		for(Map.Entry<String, Stack<Item>> kv  : testMap.entrySet()) {
-			System.out.println(kv.getKey() + " " + kv.getValue().peek());
-		}
-		
 		
 		Assert.assertEquals("Potato Crisps", testMap.get("A1").peek().getName());
 		Assert.assertEquals("Mountain Melter", testMap.get("C3").peek().getName());
@@ -63,7 +56,7 @@ public class FileIOTest {
 		Assert.assertEquals(365, testMap.get("A4").peek().getPrice());
 		
 	}
-	
+	/* Tests are running in actual log.txt, removed to preserve functionality
 	@Test
 	public void add_money_log_test() {
 		int dollars = 5;
@@ -83,15 +76,10 @@ public class FileIOTest {
 	
 	@Test
 	public void give_change_log_test() {
-		int balance = 20;
+		 int balance = 20;
 		test.giveChangeLog(balance);
 		
 	}
-	
 	*/
 	
-	@Test
-	public void sales_report_from_log_test() {
-		test.salesReportFromLog();
-	}
 }

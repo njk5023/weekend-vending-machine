@@ -49,15 +49,22 @@ public class VendingMachineCLI {
 		System.out.println("***     Vendo-Matic 500     ***");
 		System.out.println("*******************************");
 		
-		while (!mainChoice.equals(MAIN_MENU_OPTION_MAINTENANCE)) {
+		while (!(mainChoice.equals(MAIN_MENU_OPTION_MAINTENANCE) && userInput.equals("12345"))) {
 			mainChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);			
 			if (mainChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				orderedMenu = ms.getOrderedMenu();
 				System.out.println("");
 				System.out.print(orderedMenu);				
 			}else if (mainChoice.equals(MAIN_MENU_OPTION_MAINTENANCE)){
-				System.out.println("Machine being serviced");
-			}else if (mainChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+				System.out.println("Please enter password to service machine: ");
+				userInput = input.nextLine();
+				if(userInput.equals("12345")) {
+					System.out.println("Machine being serviced, program terminated");	
+				}else{
+					System.out.println("Unauthorized access");
+				}
+									
+				}else if (mainChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				do {
 					System.out.println("\nCurrent Money Provided: " + (nf.format((double)(mh.getBalance()) / 100) ));
 					purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);

@@ -14,9 +14,6 @@ public class MachineStocker {
 	private Map<String, Stack<Item>> vendingStock = new HashMap<String, Stack<Item>>();
 	private NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
 
-//	private List<Item> itemsBought = new ArrayList<Item>();
-	
-
 	public Map<String, Stack<Item>> getMap() {
 		return this.vendingStock;
 	}
@@ -27,8 +24,6 @@ public class MachineStocker {
 		for (Map.Entry<String, Stack<Item>> kv : this.getMap().entrySet()) {
 			if (kv.getValue().size() > 0) {
 				String add = String.format("%2s%-22s%8s%15s\n", "" + kv.getKey(), " | " + kv.getValue().peek().getName(), "" + nf.format( (double)(kv.getValue().peek().getPrice()) / 100), "INVENTORY: " + kv.getValue().size() );
-//				stringList.add("" + kv.getKey() + " " + kv.getValue().peek().getName() + "\t\t "
-//						+ nf.format( (double)(kv.getValue().peek().getPrice()) / 100) + "\t INVENTORY: " + kv.getValue().size() + "\n");
 				stringList.add(add);
 			} else {
 				stringList.add("" + kv.getKey() + "\t***ITEM SOLD OUT***\n");
@@ -40,12 +35,6 @@ public class MachineStocker {
 			stringToReturn += c;
 		}
 
-		/*
-		 * ArrayList<Map.Entry<String, Stack<Item>>> arrayList = new
-		 * ArrayList<Map.Entry<String, Stack<Item>>>(); for (Map.Entry<String,
-		 * Stack<Item>> kv : this.getMap().entrySet()) { arrayList.add(kv); }
-		 * arrayList.sort(c);
-		 */
 		return stringToReturn;
 	}
 
@@ -64,13 +53,5 @@ public class MachineStocker {
 			return null;
 		}
 	}
-	
-/*	public void itemBought(Item item) {
-		this.itemsBought.add(item);
-	}
 
-	public void emptyItemBought () {
-		this.itemsBought.clear();
-		
-	}*/
 }

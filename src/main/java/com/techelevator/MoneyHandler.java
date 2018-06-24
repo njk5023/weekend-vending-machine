@@ -11,8 +11,13 @@ public class MoneyHandler {
 	// method called when Feed Money option selected. adds money to current balance
 	// and loop back to purchase menu.
 	public void addMoney(int dollars) {
-		dollars *= 100;
-		this.balance += dollars;
+		if (dollars > 0) {
+			dollars *= 100;
+			this.balance += dollars;
+		}
+		else {
+			System.out.println("INVALID ENTRY: Please enter a whole dollar amount.");	
+		}
 	}
 
 	public void payForItem(Item item) {
