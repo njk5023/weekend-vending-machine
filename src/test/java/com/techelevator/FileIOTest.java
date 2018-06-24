@@ -33,7 +33,7 @@ public class FileIOTest {
 	public void setUp() {
 		restockPath = "vendingmachine.csv";
 		logPath = "log.txt";
-		reportPath = "report.txt";
+		reportPath = "salesreport.txt";
 		
 		currentDate = new Date();
 		format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aaa");
@@ -41,6 +41,8 @@ public class FileIOTest {
 		
 		test = new FileIO();
 	}
+	
+	/*
 	
 	@Test
 	public void restock_machine_test() {
@@ -84,5 +86,12 @@ public class FileIOTest {
 		int balance = 20;
 		test.giveChangeLog(balance);
 		
+	}
+	
+	*/
+	
+	@Test
+	public void sales_report_from_log_test() {
+		test.salesReportFromLog();
 	}
 }

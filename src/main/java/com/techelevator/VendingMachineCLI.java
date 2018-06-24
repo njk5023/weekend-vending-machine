@@ -40,17 +40,7 @@ public class VendingMachineCLI {
 		String purchaseChoice = "";
 		
 		String restockPath = "vendingmachine.csv";
-		ms.reStockMachine(io.restockMachine(restockPath));
-//		Map<String, Stack<Item>> reportMap = new HashMap<String, Stack<Item>>();
-//		
-//		for (Map.Entry<String, Stack<Item>> kv : ms.getMap().entrySet()) {
-//			reportMap.put(kv.getValue().peek().getName(), kv.getValue());
-//		}
-		
-//		io.SetSalesReport(ms.getMap());
-		
-		
-		
+		ms.reStockMachine(io.restockMachine(restockPath));		
 		
 		String orderedMenu;
 		ArrayList<Item> itemsBought = new ArrayList<Item>();
@@ -105,14 +95,12 @@ public class VendingMachineCLI {
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 						for (Item item : itemsBought) {
 							System.out.println(item.getConsumeMessage());
-							
-//							reportMap.get(item.getName()).push(item);
-//							System.out.println("report map size is now" + reportMap.get(item.getName()).size());
 						}
 						io.giveChangeLog(mh.getBalance());
 						Math.round(mh.getBalance());
 						System.out.println(mh.giveChange());	
 						itemsBought.clear();
+						io.salesReportFromLog();
 					}
 					
 				} while(!(purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)));

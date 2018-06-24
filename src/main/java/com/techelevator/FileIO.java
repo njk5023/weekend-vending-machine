@@ -93,7 +93,7 @@ public class FileIO {
 			{
 			//continuous printing to log.txt file
 			String toPrint;
-			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~FEED MONEY~~~~~~~~~~~~~", nf.format(dollars), nf.format(balance / 100));
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~FEED MONEY~~~~~~~~~~~~~", nf.format(dollars), nf.format((double)balance / 100));
 			out.println(toPrint);
 //			    out.println(dateToStr + "\t FEED MONEY:        \t " + nf.format(dollars / 100) + "\t" + nf.format(balance / 100));
 			} catch (IOException e) {
@@ -122,7 +122,7 @@ public class FileIO {
 			{
 			//continuous printing to log.txt file
 			String toPrint;
-			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, item.getName() + " " + key, nf.format( (double) (balance/100) ), nf.format( (double) ( balance - item.getPrice() ) / 100));
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, item.getName() + " " + key, nf.format( ((double)(balance))/100), nf.format( (double) ( balance - item.getPrice() ) / 100));
 			out.println(toPrint);
 
 //			    out.println(dateToStr + " " + item.getName() + " " + key + "\t " + nf.format( (double) (balance/100) ) + "\t" + nf.format( (double) ( balance - item.getPrice() ) / 100));
@@ -152,7 +152,7 @@ public class FileIO {
 			{
 			//continuous printing to log.txt file
 			String toPrint;
-			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~GIVE CHANGE:~~~~~~~~~~~" , nf.format( (double) (balance/100) ), "$0.00");
+			toPrint = String.format("%-23s%-25s%-16s%-16s", dateToStr, "~GIVE CHANGE:~~~~~~~~~~~" , nf.format( ((double)(balance))/100 ), "$0.00");
 			out.println(toPrint);
 
 //			    out.println(dateToStr + "\t GIVE CHANGE:       \t" + nf.format( ((double)(balance)) / 100 ) + "\t" + "$0.00");
@@ -163,73 +163,79 @@ public class FileIO {
 				
 	}
 	
-	public Map<String, Integer> getSalesReport() {
-		Map<String, Integer> mapToReturn = new HashMap<String, Integer>();
-		currentDate = new Date();
-		dateToStr = format.format(currentDate);
-		File inputFile = new File(reportPath);	
+	
+	
+	public void salesReportFromLog () {
+		Map <String, Integer> inventoryMap = new HashMap<String, Integer>();
+		reportPath = "salesreport.txt";
+		File outputFile = new File(reportPath);
+		File inputFile = new File(logPath);
+
 		if(!inputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
-			File newFile = new File("salesreport.txt");			
+			File newFile = new File(logPath);
 			try {
 				newFile.createNewFile();
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
 				e.printStackTrace();
-			}			
-		}
-		
-	return mapToReturn;	
-	}
-	
-	
-	public void SetSalesReport (Map <String, Integer> inventoryMap, Map<String, Integer> priceMap) {
-		currentDate = new Date();
-		dateToStr = format.format(currentDate);
-		File outputFile = new File(reportPath);	
-		
-		try(FileWriter fw = new FileWriter(reportPath, false); 
-				BufferedWriter bw = new BufferedWriter(fw);
-				PrintWriter out = new PrintWriter(bw))
-			{
-			//continuous printing to log.txt file
-			String toPrint = "";
-			for (Map.Entry<String, Integer> kv : inventoryMap.entrySet()) {
-				if (kv.getKey().equals("**TOTAL SALES**")) {
-					toPrint = "**TOTAL SALES** " + inventoryMap.get("**TOTAL SALES**");
-				} else {
-					toPrint = kv.getKey() + "|" + (kv.getValue());
-					out.println(toPrint);
-				}
 			}
-			out.print("\n**TOTAL SALES** " + nf.format(0));
-//			    out.println(dateToStr + "\t FEED MONEY:        \t " + nf.format(dollars / 100) + "\t" + nf.format(balance / 100));
+		}
+
+		int totalPennies = 0;
+		
+		if(!outputFile.exists()) { // returns true if a file or directory exists at the file system location, otherwise returns false
+			File newFile = new File(reportPath);
+			try {
+				newFile.createNewFile();
 			} catch (IOException e) {
 				System.out.println("Input/output exception error");
-				e.printStackTrace();				
+				e.printStackTrace();
 			}
-		
+		}
 
-
 		
-		
-		
-		
-		
-		
-
-		/*
-		//appending text to file
-				try(FileWriter fw = new FileWriter(reportPath, true); 
-						BufferedWriter bw = new BufferedWriter(fw);
-						PrintWriter out = new PrintWriter(bw))
-					{
-					
-					
-					} catch (IOException e) {
-						System.out.println("Input/output exception error");
-						e.printStackTrace();				
+		try (Scanner reader = new Scanner(inputFile)) {
+			while (reader.hasNextLine()) {
+				String line = reader.nextLine();
+				String name = "";
+				String startingBalance = "";
+				String endingBalance = "";
+				int price = 0;
+				if (!line.contains("FEED MONEY") && !line.contains("GIVE CHANGE")) {
+					String[] line2 = line.split("[AP][M]+");
+					String[] line3 = line2[1].split("[A-Z][1-9]+");
+					name = line3[0];
+					String[] line4 = line.split("\\$+");
+					startingBalance = line4[1].replaceAll("\\s", "");
+					endingBalance = line4[2].replaceAll("\\s", "");
+					price = (int)(Double.parseDouble(startingBalance) * 100) -
+							(int)(Double.parseDouble(endingBalance) * 100);
+					if (!inventoryMap.containsKey(name)) {
+						inventoryMap.put(name,  1);
+					} else {
+						inventoryMap.put(name, inventoryMap.get(name) + 1);
 					}
-					*/
+					totalPennies += price;
+					}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Oops, something went wrong trying to read the input.");
+		}
+		
+		String lineToPrint = "";
+		try(PrintWriter pw = new PrintWriter(outputFile)) {
+			for (Map.Entry<String, Integer> kv : inventoryMap.entrySet()) {
+				lineToPrint = kv.getKey().substring(1,  kv.getKey().length() -1) + "|" + kv.getValue();
+				pw.println(lineToPrint);
+			}
+			lineToPrint = "\n**TOTAL SALES** " + nf.format(((double)(totalPennies)/100));
+			pw.println(lineToPrint);
+		} catch (FileNotFoundException e) {
+			System.out.println("Input/output exception error");
+
+		}
+		
 	}
+
 	
 }
